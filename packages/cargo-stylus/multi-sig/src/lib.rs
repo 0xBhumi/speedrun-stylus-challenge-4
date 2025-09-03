@@ -1,6 +1,7 @@
 // Allow `cargo stylus export-abi` to generate a main function.
 #![cfg_attr(not(feature = "export-abi"), no_main)]
 extern crate alloc;
+use stylus_cache_sdk::{is_contract_cacheable};
 
 /// Import items from the SDK. The prelude contains common traits and macros.
 use stylus_sdk::{contract, evm, msg, prelude::*, call::{Call, call}, alloy_primitives::{Address, U256}, abi::Bytes};
@@ -331,4 +332,8 @@ impl MultiSig {
         }
         Ok(owners_vec)
     }
+    pub fn is_cacheable(&self) -> bool {
+        is_contract_cacheable()
+    }
+
 }
